@@ -41,3 +41,11 @@ export const deleteReq = (path, data = {}) => {
     body: JSON.stringify(data),
   });
 };
+
+export const saveAuthToken = (value) => {
+  localStorage.setItem('authToken', value);
+};
+
+export const getAuthToken = () => {
+  return localStorage.getItem('authToken');
+};

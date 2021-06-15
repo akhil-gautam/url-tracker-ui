@@ -1,4 +1,4 @@
-export default {
+const theme = {
   button: {
     default: {
       base: 'px-6 py-2 flex items-center justify-center space-x-2 text-lg font-semibold rounded-lg shadow-lg focus:outline-none transition duration-400 ease-in-out hover:shadow-none focus:ring-2 ring-offset-1',
@@ -209,3 +209,5 @@ export default {
     },
   },
 };
+
+export default theme;

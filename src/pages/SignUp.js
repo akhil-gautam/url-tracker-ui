@@ -25,7 +25,6 @@ const SignUp = () => {
       })
       .catch((err) => {
         for (const el in err.inner) {
-          let x = { [err.inner[el].path]: err.inner[el].errors.toString() };
           if (er[err.inner[el].path]) {
             er[err.inner[el].path] =
               er[err.inner[el].path] + ', ' + err.inner[el].errors.toString();
@@ -66,7 +65,7 @@ const SignUp = () => {
           value={data.email}
           onChange={handleChange}
           name='email'
-          type='text'
+          type='email'
           helperChild={errs.email}
           helperType='error'
         />
