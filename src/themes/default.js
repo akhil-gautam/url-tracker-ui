@@ -137,7 +137,7 @@ export default {
     base: '',
   },
   label: {
-    base: 'block space-y-1 my-2 w-full text-gray-800 text-md font-normal',
+    base: 'block space-y-1 my-4 w-full text-gray-800 text-md font-normal',
     default: '',
     outlined:
       'p-4 rounded-xl border border-purple-600 transition hover:bg-gray-50 hover:bg-opacity-50 hover:border-purple-800',
@@ -208,4 +208,4 @@ export default {
         'transition-transform duration-500 ease-in-out transform scale-0',
     },
   },
-}
+};

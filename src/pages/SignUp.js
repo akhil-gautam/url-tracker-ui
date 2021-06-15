@@ -1,37 +1,74 @@
-import { useState, useCallback } from 'react'
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { Link, Redirect } from 'react-router-dom';
 
-import TextInput from '../components/TextInput'
-import Button from '../components/Button'
+import TextInput from '../components/TextInput';
+import Button from '../components/Button';
+import { post } from '../Api';
+import SignUpSchema from '../validation_schema/SignUpSchema';
 
 const SignUp = () => {
-  const [data, setData] = useState({ email: '', password: '' })
+  const [data, setData] = useState({ email: '', password: '' });
+  const [errs, setErrs] = useState({ email: '', password: '' });
+  const [redirect, setRedirect] = useState(false);
 
-  const handleChange = useCallback(
-    (e) => {
-      setData({ ...data, [e.target.name]: e.target.value })
-    },
-    [data]
-  )
-  const handleSubmit = useCallback(
-    (e) => {
-      e.preventDefault()
-      console.log(data)
-    },
-    [data]
-  )
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const er = {};
+    SignUpSchema.validate(data, { abortEarly: false })
+      .then(() => {
+        // implementing API call here
+        createUser();
+      })
+      .catch((err) => {
+        for (const el in err.inner) {
+          let x = { [err.inner[el].path]: err.inner[el].errors.toString() };
+          if (er[err.inner[el].path]) {
+            er[err.inner[el].path] =
+              er[err.inner[el].path] + ', ' + err.inner[el].errors.toString();
+          } else {
+            er[err.inner[el].path] = err.inner[el].errors.toString();
+          }
+        }
+        setErrs(er);
+      });
+  };
+
+  const createUser = async () => {
+    try {
+      const response = await post('users', data);
+      if (response.status !== 200) {
+        const e = await response.json();
+        toast.error(e.message);
+      } else {
+        setRedirect(true);
+      }
+    } catch (e) {
+      toast.error(e);
+    }
+  };
+
+  if (redirect) {
+    return <Redirect to='/signin' />;
+  }
 
   return (
-    <div className='h-full w-full flex flex-col justify-center items-center'>
+    <div className='h-full w-full px-2 flex flex-col justify-center items-center'>
       <form
         onSubmit={handleSubmit}
-        className='px-8 py-10 w-1/3 rounded-xl space-y-8 shadow-lg border'
+        className='px-4 md:px-8 py-10 w-full md:w-1/3 rounded-xl shadow-lg border'
       >
         <TextInput
           labelChild='Email'
           value={data.email}
           onChange={handleChange}
           name='email'
-          type='email'
+          type='text'
+          helperChild={errs.email}
+          helperType='error'
         />
         <TextInput
           labelChild='Password'
@@ -40,23 +77,24 @@ const SignUp = () => {
           autoComplete='new-password'
           onChange={handleChange}
           value={data.password}
-          helperChild='Note: You can right click and choose Suggest Password!'
+          helperChild={errs.password}
+          helperType='error'
         />
         <Button
           type='submit'
           variant='outline'
-          className='w-full'
+          className='w-full my-8'
           RightIcon={RightArrow}
         >
           Register
         </Button>
       </form>
-      <a href='/signin' className='mt-6 font-normal text-blue-700 underline'>
+      <Link to='/signin' className='mt-6 font-normal text-blue-700 underline'>
         Sign in instead?
-      </a>
+      </Link>
     </div>
-  )
-}
+  );
+};
 
 const RightArrow = () => (
   <svg
@@ -73,6 +111,6 @@ const RightArrow = () => (
       d='M13 7l5 5m0 0l-5 5m5-5H6'
     />
   </svg>
-)
+);
 
-export default SignUp
+export default SignUp;

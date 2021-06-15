@@ -1,6 +1,8 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-import { SignIn, SignUp, Home } from './pages'
+import { SignIn, SignUp, Home } from './pages';
 
 export default function App() {
   return (
@@ -20,6 +22,7 @@ export default function App() {
           </Route>
         </Switch>
       </div>
+      <ToastContainer />
     </Router>
-  )
+  );
 }
