@@ -1,5 +1,4 @@
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
 } from 'react-router-dom';
@@ -11,7 +10,7 @@ import { SignIn, SignUp, Dashboard } from './pages';
 export default function App() {
   return (
     <>
-      <div className='h-screen w-full'>
+      <div className='w-full rounded-3xl border border-dashed border-black shadow-md'>
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>

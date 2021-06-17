@@ -3,11 +3,20 @@ import { toast } from 'react-toastify';
 
 import Modal from '../../components/Modal';
 import Analytics from './Analytics';
+import EditLink from './EditLink';
 
-const MainContent = ({ loading, link }) => {
+const MainContent = ({ loading, link, refetch }) => {
   const [modalOpen, setModal] = useState(false);
-  if (!link || loading) {
+  if (loading) {
     return <div>Loading...</div>;
+  }
+
+  if (!link) {
+    return (
+      <div className='flex justify-center items-center h-full text-red-400 text-lg font-semibold'>
+        No links avaiable to show.
+      </div>
+    );
   }
 
   const copyJobToClipboard = () => {
@@ -23,11 +32,9 @@ const MainContent = ({ loading, link }) => {
 
   if (modalOpen) {
     return (
-      <section className='flex flex-col py-8 px-10'>
-        <Modal isOpen={modalOpen} onClose={() => setModal(false)}>
-          THis is in modal
+        <Modal isOpen={modalOpen} onClose={() => setModal(false)} className='w-2/3 flex flex-col justify-center'>
+          <EditLink link={link} handleModalClose={() => setModal(false)} refetch={refetch}/>
         </Modal>
-      </section>
     );
   }
 
@@ -78,7 +85,7 @@ const MainContent = ({ loading, link }) => {
         </section>
       </section>
 
-      <hr className='my-4' />
+      <hr className='my-12' />
       <Analytics />
     </section>
   );

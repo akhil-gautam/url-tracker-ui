@@ -14,15 +14,14 @@ const Dashboard = () => {
 
   const token = getAuthToken() || '';
 
-  if (token.length === 0) {
-    return <Redirect to='/signin' />;
-  }
-
   useEffect(() => {
+    if (token.length === 0) {
+      return <Redirect to='/signin' />;
+    }
     if (links.length === 0) {
       fetchLinks();
     } else {
-      setActiveLink(links.filter((link) => link.id == activeLinkID)[0]);
+      setActiveLink(links.filter((link) => link.id === activeLinkID)[0]);
     }
   }, [activeLinkID]);
 
@@ -34,14 +33,14 @@ const Dashboard = () => {
     const parsedResponse = await response.json();
     setLoading(false);
     setLinks(parsedResponse);
-    parsedResponse.length >= 0 && setActiveLinkID(parsedResponse[0].id);
+    parsedResponse.length > 0 && setActiveLinkID(parsedResponse[0].id);
     setActiveLink(parsedResponse[0]);
   };
 
   return (
-    <main className='h-screen'>
+    <main className='h-full'>
       <TopNav />
-      <section className='flex h-full w-full'>
+      <section className='flex w-full'>
         <LeftNav
           links={links}
           loading={loading}
@@ -49,7 +48,11 @@ const Dashboard = () => {
           setActiveLinkID={(link) => setActiveLinkID(link)}
         />
         <div className='w-9/12'>
-          <MainContent link={activeLink} loading={loading} />
+          <MainContent
+            link={activeLink}
+            loading={loading}
+            refetch={fetchLinks}
+          />
         </div>
       </section>
     </main>

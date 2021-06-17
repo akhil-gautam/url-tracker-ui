@@ -18,7 +18,7 @@ const LeftNav = ({ links, loading = false, activeLinkID, setActiveLinkID }) => {
   }
 
   return (
-    <section className='w-3/12 shadow-xl flex-1 relative'>
+    <section className='w-3/12 shadow-xl flex flex-col relative rounded-l-3xl'>
       <p className='flex px-4 py-2 bg-pink-50 items-center justify-between'>
         <span className='font-thin text-gray-500'>{links.length} Link</span>
         <span>
@@ -29,7 +29,7 @@ const LeftNav = ({ links, loading = false, activeLinkID, setActiveLinkID }) => {
         {links.map((link) => (
           <li
             className={`px-5 py-2 flex flex-col border-b border-pink-50 hover:bg-gray-100  cursor-pointer transition ${
-              link.id === activeLinkID && 'border border-dashed border-black rounded-xl'
+              link.id === activeLinkID && 'bg-gray-100'
             }`}
             key={link.id}
             title={link.id}

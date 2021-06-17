@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { Redirect } from 'react-router-dom';
 
-import { isLoggedIn, getEmail, clearLocalStorage } from '../Api';
+import { isLoggedIn, clearLocalStorage } from '../Api';
 
 const TopNav = () => {
   const [loggedIn, setLoggedIn] = useState(isLoggedIn());

@@ -147,7 +147,7 @@ const theme = {
     info: 'text-gray-500',
     error: 'text-red-500',
     success: 'text-green-500',
-    warn: 'text-yellow-500',
+    warn: 'text-yellow-500 animate-pulse',
   },
   toggleSwitch: {
     base: {
