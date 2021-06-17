@@ -2,3 +2,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 6px solid #673ab7;
+  border-color: #673ab7 transparent #673ab7 transparent;
+  animation: rotate 1.5s linear infinite;
+}

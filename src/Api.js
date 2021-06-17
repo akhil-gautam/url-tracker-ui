@@ -49,3 +49,26 @@ export const saveAuthToken = (value) => {
 export const getAuthToken = () => {
   return localStorage.getItem('authToken');
 };
+
+export const saveEmail = (value) => {
+  localStorage.setItem('email', value);
+};
+
+export const saveUserId = (value) => {
+  localStorage.setItem('uuid', value);
+}
+
+export const getEmail = () => {
+  return localStorage.getItem('email');
+};
+
+export const getUserID = () => {
+  return localStorage.getItem('uuid');
+};
+
+export const clearLocalStorage = () => {
+  localStorage.removeItem('authToken');
+  localStorage.removeItem('email');
+};
+
+export const isLoggedIn = () => getAuthToken() && getAuthToken().length > 0;

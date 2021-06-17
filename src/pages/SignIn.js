@@ -4,7 +4,13 @@ import { toast } from 'react-toastify';
 
 import TextInput from '../components/TextInput';
 import Button from '../components/Button';
-import { post, saveAuthToken, getAuthToken } from '../Api';
+import {
+  post,
+  saveAuthToken,
+  getAuthToken,
+  saveEmail,
+  saveUserId,
+} from '../Api';
 import SignInSchema from '../validation_schema/SignInSchema';
 
 const SignIn = () => {
@@ -51,6 +57,8 @@ const SignIn = () => {
       } else {
         const readableResponse = await response.json();
         saveAuthToken(readableResponse.token);
+        saveEmail(readableResponse.email);
+        saveUserId(readableResponse.id);
         setRedirect(true);
       }
     } catch (e) {
