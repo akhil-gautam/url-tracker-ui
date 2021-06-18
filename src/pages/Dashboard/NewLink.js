@@ -6,7 +6,7 @@ import Button from '../../components/Button';
 import LinkCreateSchema from '../../validation_schema/LinkCreateSchema';
 import { getAuthToken, getUserID, post } from '../../Api';
 
-const NewLink = ({ handleModalClose }) => {
+const NewLink = ({ refetch, handleModalClose }) => {
   const [data, setData] = useState({
     short_link: '',
     original_link: '',
@@ -57,6 +57,7 @@ const NewLink = ({ handleModalClose }) => {
       } else {
         toast.success('Created successfully!', { position: 'top-center' });
         handleModalClose();
+        refetch();
       }
     } catch (e) {
       toast.error(e);

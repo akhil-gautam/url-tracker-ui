@@ -72,7 +72,7 @@ const HitsList = ({ short_url, link_id }) => {
             >
               <span>{access.location || 'N/A'}</span>
               <span>{access.referrer}</span>
-              <span>{new Date(1623954033385).toLocaleString()}</span>
+              <span>{new Date(access.__createdtime__).toLocaleString()}</span>
             </li>
           ))}
         </ul>

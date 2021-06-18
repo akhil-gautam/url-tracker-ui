@@ -8,7 +8,7 @@ export const errorResponse = (error) => error;
 export const get = (path, raw = false) =>
   fetch(raw ? path : urlPath(path), {
     headers: {
-      Authorization: `Authorization: ${localStorage.getItem('auth-token')}`,
+      Authorization: `Authorization: ${localStorage.getItem('authToken')}`,
     },
   });
 
@@ -56,7 +56,7 @@ export const saveEmail = (value) => {
 
 export const saveUserId = (value) => {
   localStorage.setItem('uuid', value);
-}
+};
 
 export const getEmail = () => {
   return localStorage.getItem('email');

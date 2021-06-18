@@ -39,7 +39,7 @@ const Dashboard = () => {
 
   return (
     <main className='h-full'>
-      <TopNav />
+      <TopNav refetch={fetchLinks}/>
       <section className='flex w-full'>
         <LeftNav
           links={links}

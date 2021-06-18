@@ -1,11 +1,8 @@
-import {
-  Switch,
-  Route,
-} from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { SignIn, SignUp, Dashboard } from './pages';
+import { SignIn, SignUp, Dashboard, Redirector } from './pages';
 
 export default function App() {
   return (
@@ -17,6 +14,9 @@ export default function App() {
           </Route>
           <Route path='/signup'>
             <SignUp />
+          </Route>
+          <Route path='/:id'>
+            <Redirector />
           </Route>
           <Route path='/'>
             <Dashboard />

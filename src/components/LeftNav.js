@@ -1,7 +1,7 @@
 const LeftNav = ({ links, loading = false, activeLinkID, setActiveLinkID }) => {
   if (loading) {
     return (
-      <div className='w-3/12 h-full bg-gray-400 animate-pulse text-white shadow-xl flex-1 relative'>
+      <div className='w-3/12 h-screen bg-gray-400 animate-pulse text-white shadow-xl flex-1 relative'>
         Loading...
       </div>
     );
@@ -14,8 +14,8 @@ const LeftNav = ({ links, loading = false, activeLinkID, setActiveLinkID }) => {
   }
 
   const handleClick = (e) => {
-    setActiveLinkID(e.target.parentElement.title)
-  }
+    setActiveLinkID(e.target.parentElement.title);
+  };
 
   return (
     <section className='w-3/12 flex flex-col relative border-r'>
@@ -36,20 +36,18 @@ const LeftNav = ({ links, loading = false, activeLinkID, setActiveLinkID }) => {
             onClick={handleClick}
           >
             <p className='text-xs font-extralight text-gray-400 transition mb-1'>
-              JUNE 12
+              {new Date(link.__createdtime__).toDateString()}
             </p>
             <p className='font-light'>{link.title}</p>
             <p className='text-sm font-semibold text-pink-600 transition'>
-              {link.short_link}
+              {'https://pynk.in/' + link.short_link}
             </p>
             <p
               className='text-sm font-thin text-pink-600 transition'
               title={link.original_link}
             >
               Redirects to:{' '}
-              <span
-                className='text-blue-600 transition'
-              >
+              <span className='text-blue-600 transition'>
                 {link.original_link}
               </span>
             </p>

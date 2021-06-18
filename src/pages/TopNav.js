@@ -5,7 +5,7 @@ import { isLoggedIn, clearLocalStorage } from '../Api';
 import Modal from '../components/Modal';
 import NewLink from './Dashboard/NewLink';
 
-const TopNav = () => {
+const TopNav = ({ refetch }) => {
   const [loggedIn, setLoggedIn] = useState(isLoggedIn());
   const [modalOpen, setModal] = useState(false);
 
@@ -25,7 +25,7 @@ const TopNav = () => {
         onClose={() => setModal(false)}
         className='w-2/3 flex flex-col justify-center'
       >
-        <NewLink handleModalClose={() => setModal(false)} />
+        <NewLink refetch={refetch} handleModalClose={() => setModal(false)} />
       </Modal>
     );
   }
@@ -36,7 +36,10 @@ const TopNav = () => {
       <div className='flex justify-around items-center space-x-5'>
         {loggedIn && (
           <div className='flex space-x-6'>
-            <button className='flex items-center border border-blue-700 text-blue-700 px-3 py-1 rounded-lg' onClick={() => setModal(true)}>
+            <button
+              className='flex items-center border border-blue-700 text-blue-700 px-3 py-1 rounded-lg'
+              onClick={() => setModal(true)}
+            >
               <span>CREATE</span>
               <span>+</span>
             </button>

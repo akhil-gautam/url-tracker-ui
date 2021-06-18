@@ -54,7 +54,7 @@ const MainContent = ({ loading, link, refetch }) => {
   return (
     <section className='flex flex-col py-8 px-10'>
       <header className='mb-2 text-sm text-gray-400'>
-        CREATED JUNE 12, 09:56 AM
+        CREATED {new Date(link.__createdtime__).toDateString()}
       </header>
       <section className='text-xl font-light'>
         {link.title || link.original_link}
