@@ -5,11 +5,11 @@ import { get } from '../../Api';
 
 const Analytics = ({ link_id }) => {
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
 
   useEffect(() => {
     fetchLinkHits();
-  }, []);
+  }, [link_id]);
   const fetchLinkHits = async () => {
     setLoading(true);
     const response = await get(`links/${link_id}/analytics`);
@@ -22,6 +22,12 @@ const Analytics = ({ link_id }) => {
       <div className='text-blue-600 text-xl font-semibold animate-pulse'>
         Loading...
       </div>
+    );
+  }
+
+  if (data === null) {
+    return (
+      <section className='flex w-full'>Analytics data not avaiable.</section>
     );
   }
 

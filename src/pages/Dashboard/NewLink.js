@@ -3,11 +3,15 @@ import { toast } from 'react-toastify';
 
 import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
-import LinkEditSchema from '../../validation_schema/LinkEditSchema';
-import { getAuthToken, post } from '../../Api';
+import LinkCreateSchema from '../../validation_schema/LinkCreateSchema';
+import { getAuthToken, getUserID, post } from '../../Api';
 
-const EditLink = ({ link, handleModalClose, refetch }) => {
-  const [data, setData] = useState(link);
+const NewLink = ({ handleModalClose }) => {
+  const [data, setData] = useState({
+    short_link: '',
+    original_link: '',
+    title: '',
+  });
   const [errs, setErrs] = useState({
     short_link: '',
     original_link: '',
@@ -23,9 +27,9 @@ const EditLink = ({ link, handleModalClose, refetch }) => {
     e.preventDefault();
     console.log(data);
     const er = {};
-    LinkEditSchema.validate(data, { abortEarly: false })
+    LinkCreateSchema.validate(data, { abortEarly: false })
       .then(() => {
-        updateLink();
+        createLink();
       })
       .catch((err) => {
         for (const el in err.inner) {
@@ -40,20 +44,19 @@ const EditLink = ({ link, handleModalClose, refetch }) => {
       });
   };
 
-  const updateLink = async () => {
+  const createLink = async () => {
     try {
-      const response = await post('update_link', {
+      const response = await post('links', {
         ...data,
         token: getAuthToken(),
+        user_id: getUserID(),
       });
       if (response.status !== 200) {
         const e = await response.json();
         toast.error(e.message);
       } else {
-        const readableResponse = await response.json();
-        toast.success(readableResponse.message, { position: 'top-center' });
+        toast.success('Created successfully!', { position: 'top-center' });
         handleModalClose();
-        refetch()
       }
     } catch (e) {
       toast.error(e);
@@ -62,16 +65,7 @@ const EditLink = ({ link, handleModalClose, refetch }) => {
 
   return (
     <form onSubmit={handleSubmit} className='w-4/5 mx-auto'>
-      <header className='text-lg font-bold text-center'>EDIT LINK</header>
-      <TextInput
-        labelChild='Short Link'
-        value={data.short_link}
-        onChange={handleChange}
-        name='short_link'
-        type='text'
-        helperChild={errs.short_link}
-        helperType='error'
-      />
+      <header className='text-lg font-bold text-center'>NEW LINK</header>
       <TextInput
         labelChild='Redirect Link'
         type='text'
@@ -92,6 +86,7 @@ const EditLink = ({ link, handleModalClose, refetch }) => {
         value={data.title}
         helperChild={errs.title}
         helperType='error'
+        placeholder='This is optional.'
       />
       <Button
         type='submit'
@@ -99,7 +94,7 @@ const EditLink = ({ link, handleModalClose, refetch }) => {
         className='w-full my-8'
         RightIcon={RightArrow}
       >
-        UPDATE
+        CREATE
       </Button>
     </form>
   );
@@ -122,4 +117,4 @@ const RightArrow = () => (
   </svg>
 );
 
-export default EditLink;
+export default NewLink;

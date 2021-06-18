@@ -9,7 +9,7 @@ const HitsList = ({ short_url, link_id }) => {
 
   useEffect(() => {
     fetchLinkHits();
-  }, []);
+  }, [link_id]);
   const fetchLinkHits = async () => {
     setLoading(true);
     const response = await get(`links/${link_id}/hits`);

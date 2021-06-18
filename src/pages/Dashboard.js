@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import { get, getAuthToken, getUserID } from '../Api';
-import TopNav from '../components/TopNav';
+import TopNav from './TopNav';
 import LeftNav from '../components/LeftNav';
 import MainContent from './Dashboard/MainContent';
 
