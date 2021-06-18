@@ -10,9 +10,7 @@ import { SignIn, SignUp, Dashboard } from './pages';
 export default function App() {
   return (
     <>
-      <div className='w-full rounded-3xl border border-dashed border-black shadow-md'>
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
+      <div className='w-full py-8 px-2 md:px-0 rounded-3xl md:border border-dashed border-black md:shadow-xl'>
         <Switch>
           <Route path='/signin'>
             <SignIn />

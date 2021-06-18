@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import Modal from '../../components/Modal';
 import Analytics from './Analytics';
 import EditLink from './EditLink';
+import HitsList from './HitsList';
 
 const MainContent = ({ loading, link, refetch }) => {
   const [modalOpen, setModal] = useState(false);
@@ -32,9 +33,17 @@ const MainContent = ({ loading, link, refetch }) => {
 
   if (modalOpen) {
     return (
-        <Modal isOpen={modalOpen} onClose={() => setModal(false)} className='w-2/3 flex flex-col justify-center'>
-          <EditLink link={link} handleModalClose={() => setModal(false)} refetch={refetch}/>
-        </Modal>
+      <Modal
+        isOpen={modalOpen}
+        onClose={() => setModal(false)}
+        className='w-2/3 flex flex-col justify-center'
+      >
+        <EditLink
+          link={link}
+          handleModalClose={() => setModal(false)}
+          refetch={refetch}
+        />
+      </Modal>
     );
   }
 
@@ -87,6 +96,8 @@ const MainContent = ({ loading, link, refetch }) => {
 
       <hr className='my-12' />
       <Analytics />
+      <hr className='my-6' />
+      <HitsList link_id={link.id} short_url={link.short_url}/>
     </section>
   );
 };

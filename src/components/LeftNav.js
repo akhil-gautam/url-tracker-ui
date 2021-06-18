@@ -18,7 +18,7 @@ const LeftNav = ({ links, loading = false, activeLinkID, setActiveLinkID }) => {
   }
 
   return (
-    <section className='w-3/12 shadow-xl flex flex-col relative rounded-l-3xl'>
+    <section className='w-3/12 flex flex-col relative border-r'>
       <p className='flex px-4 py-2 bg-pink-50 items-center justify-between'>
         <span className='font-thin text-gray-500'>{links.length} Link</span>
         <span>
