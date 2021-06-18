@@ -95,9 +95,9 @@ const MainContent = ({ loading, link, refetch }) => {
       </section>
 
       <hr className='my-12' />
-      <Analytics />
+      <Analytics link_id={link.id} />
       <hr className='my-6' />
-      <HitsList link_id={link.id} short_url={link.short_url}/>
+      <HitsList link_id={link.id} short_url={link.short_url} />
     </section>
   );
 };
