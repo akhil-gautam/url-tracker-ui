@@ -6,7 +6,10 @@ import Button from '../../components/Button';
 import LinkEditSchema from '../../validation_schema/LinkEditSchema';
 import { getAuthToken, post } from '../../Api';
 
+import { Loader, RightArrow } from '../../icons';
+
 const EditLink = ({ link, handleModalClose, refetch }) => {
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState(link);
   const [errs, setErrs] = useState({
     short_link: '',
@@ -42,6 +45,7 @@ const EditLink = ({ link, handleModalClose, refetch }) => {
 
   const updateLink = async () => {
     try {
+      setLoading(true);
       const response = await post('update_link', {
         ...data,
         token: getAuthToken(),
@@ -52,8 +56,9 @@ const EditLink = ({ link, handleModalClose, refetch }) => {
       } else {
         const readableResponse = await response.json();
         toast.success(readableResponse.message, { position: 'top-center' });
+        setLoading(false);
         handleModalClose();
-        refetch()
+        refetch();
       }
     } catch (e) {
       toast.error(e);
@@ -87,6 +92,7 @@ const EditLink = ({ link, handleModalClose, refetch }) => {
         labelChild='Title'
         type='text'
         name='title'
+        placeholder='(Optional)'
         onChange={handleChange}
         autoComplete='off'
         value={data.title}
@@ -95,31 +101,14 @@ const EditLink = ({ link, handleModalClose, refetch }) => {
       />
       <Button
         type='submit'
-        variant='outline'
+        color={loading ? 'disabled' : 'primary'}
         className='w-full my-8'
-        RightIcon={RightArrow}
+        RightIcon={loading ? Loader : RightArrow}
       >
         UPDATE
       </Button>
     </form>
   );
 };
-
-const RightArrow = () => (
-  <svg
-    xmlns='http://www.w3.org/2000/svg'
-    className='h-6 w-6'
-    fill='none'
-    viewBox='0 0 24 24'
-    stroke='currentColor'
-  >
-    <path
-      strokeLinecap='round'
-      strokeLinejoin='round'
-      strokeWidth={2}
-      d='M13 7l5 5m0 0l-5 5m5-5H6'
-    />
-  </svg>
-);
 
 export default EditLink;

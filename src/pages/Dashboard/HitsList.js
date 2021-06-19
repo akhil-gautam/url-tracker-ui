@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import CsvDownload from 'react-json-to-csv';
 
 import { get } from '../../Api';
+import { Loader } from '../../icons';
 
 const HitsList = ({ short_url, link_id }) => {
   const [loading, setLoading] = useState(false);
@@ -17,10 +18,11 @@ const HitsList = ({ short_url, link_id }) => {
     setLoading(false);
     setData(parsedResponse);
   };
+
   if (loading) {
     return (
       <div className='text-blue-600 text-xl font-semibold animate-pulse'>
-        Loading...
+        <Loader />
       </div>
     );
   }
@@ -29,30 +31,32 @@ const HitsList = ({ short_url, link_id }) => {
     <section>
       <header className='flex items-center justify-between mb-10'>
         <span className='font-semibold text-lg text-gray-800'>Access Data</span>
-        <span>
-          <CsvDownload
-            data={data}
-            filename={`${short_url}_access_data.csv`}
-            style={{
-              boxShadow: 'inset 0px 1px 0px 0px #e184f3',
-              background:
-                'linear-gradient(to bottom, #c123de 5%, #a20dbd 100%)',
-              backgroundColor: '#c123de',
-              borderRadius: '6px',
-              border: '1px solid #a511c0',
-              display: 'inline-block',
-              cursor: 'pointer',
-              color: '#ffffff',
-              fontSize: '15px',
-              fontWeight: 'bold',
-              padding: '6px 24px',
-              textDecoration: 'none',
-              textShadow: '0px 2px 0px #9b14b3',
-            }}
-          >
-            Export CSV
-          </CsvDownload>
-        </span>
+        {data.length && (
+          <span>
+            <CsvDownload
+              data={data}
+              filename={`${short_url}_access_data.csv`}
+              style={{
+                boxShadow: 'inset 0px 1px 0px 0px #e184f3',
+                background:
+                  'linear-gradient(to bottom, #c123de 5%, #a20dbd 100%)',
+                backgroundColor: '#c123de',
+                borderRadius: '6px',
+                border: '1px solid #a511c0',
+                display: 'inline-block',
+                cursor: 'pointer',
+                color: '#ffffff',
+                fontSize: '15px',
+                fontWeight: 'bold',
+                padding: '6px 24px',
+                textDecoration: 'none',
+                textShadow: '0px 2px 0px #9b14b3',
+              }}
+            >
+              Export CSV
+            </CsvDownload>
+          </span>
+        )}
       </header>
       {data.length === 0 ? (
         <section>

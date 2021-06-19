@@ -1,8 +1,13 @@
+import { Loader } from '../icons';
+
 const LeftNav = ({ links, loading = false, activeLinkID, setActiveLinkID }) => {
   if (loading) {
     return (
-      <div className='w-3/12 h-screen bg-gray-400 animate-pulse text-white shadow-xl flex-1 relative'>
-        Loading...
+      <div className='w-3/12 h-screen bg-gray-400 animate-pulse text-white text-xl shadow-xl flex space-x-3 justify-center items-center relative'>
+        <span>
+          <Loader />
+        </span>
+        <span>Loading...</span>
       </div>
     );
   }

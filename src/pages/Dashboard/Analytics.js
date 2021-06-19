@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import PieChart from './PieChart';
 import { get } from '../../Api';
+import { Loader } from '../../icons';
 
 const Analytics = ({ link_id }) => {
   const [loading, setLoading] = useState(false);
@@ -20,7 +21,7 @@ const Analytics = ({ link_id }) => {
   if (loading) {
     return (
       <div className='text-blue-600 text-xl font-semibold animate-pulse'>
-        Loading...
+        <Loader />
       </div>
     );
   }

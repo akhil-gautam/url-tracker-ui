@@ -5,6 +5,7 @@ import Modal from '../../components/Modal';
 import Analytics from './Analytics';
 import EditLink from './EditLink';
 import HitsList from './HitsList';
+import { CopyIcon, EditIcon } from '../../icons';
 
 const MainContent = ({ loading, link, refetch }) => {
   const [modalOpen, setModal] = useState(false);
@@ -15,7 +16,7 @@ const MainContent = ({ loading, link, refetch }) => {
   if (!link) {
     return (
       <div className='flex justify-center items-center h-full text-red-400 text-lg font-semibold'>
-        No links avaiable to show.
+        No links avaiable to show. Please select one from left.
       </div>
     );
   }
@@ -97,42 +98,9 @@ const MainContent = ({ loading, link, refetch }) => {
       <hr className='my-12' />
       <Analytics link_id={link.id} />
       <hr className='my-6' />
-      <HitsList link_id={link.id} short_url={link.short_url} />
+      <HitsList link_id={link.id} short_url={link.short_link} />
     </section>
   );
 };
-const CopyIcon = () => (
-  <svg
-    xmlns='http://www.w3.org/2000/svg'
-    className='h-6 w-6'
-    fill='none'
-    viewBox='0 0 24 24'
-    stroke='currentColor'
-  >
-    <path
-      strokeLinecap='round'
-      strokeLinejoin='round'
-      strokeWidth={1}
-      d='M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2'
-    />
-  </svg>
-);
-
-const EditIcon = () => (
-  <svg
-    xmlns='http://www.w3.org/2000/svg'
-    className='h-6 w-6'
-    fill='none'
-    viewBox='0 0 24 24'
-    stroke='currentColor'
-  >
-    <path
-      strokeLinecap='round'
-      strokeLinejoin='round'
-      strokeWidth={1}
-      d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'
-    />
-  </svg>
-);
 
 export default MainContent;

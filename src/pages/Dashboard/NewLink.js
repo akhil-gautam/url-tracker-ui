@@ -5,8 +5,10 @@ import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
 import LinkCreateSchema from '../../validation_schema/LinkCreateSchema';
 import { getAuthToken, getUserID, post } from '../../Api';
+import { Loader, RightArrow } from '../../icons';
 
 const NewLink = ({ refetch, handleModalClose }) => {
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
     short_link: '',
     original_link: '',
@@ -71,6 +73,7 @@ const NewLink = ({ refetch, handleModalClose }) => {
         labelChild='Redirect Link'
         type='text'
         name='original_link'
+        placeholder='(Required)'
         onChange={handleChange}
         autoComplete='off'
         value={data.original_link}
@@ -87,35 +90,18 @@ const NewLink = ({ refetch, handleModalClose }) => {
         value={data.title}
         helperChild={errs.title}
         helperType='error'
-        placeholder='This is optional.'
+        placeholder='(Optional)'
       />
       <Button
         type='submit'
-        variant='outline'
+        color={loading ? 'disabled' : 'primary'}
         className='w-full my-8'
-        RightIcon={RightArrow}
+        RightIcon={loading ? Loader : RightArrow}
       >
         CREATE
       </Button>
     </form>
   );
 };
-
-const RightArrow = () => (
-  <svg
-    xmlns='http://www.w3.org/2000/svg'
-    className='h-6 w-6'
-    fill='none'
-    viewBox='0 0 24 24'
-    stroke='currentColor'
-  >
-    <path
-      strokeLinecap='round'
-      strokeLinejoin='round'
-      strokeWidth={2}
-      d='M13 7l5 5m0 0l-5 5m5-5H6'
-    />
-  </svg>
-);
 
 export default NewLink;

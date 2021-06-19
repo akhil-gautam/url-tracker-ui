@@ -6,6 +6,8 @@ const theme = {
       success: 'bg-green-500 hover:bg-green-600 text-white',
       danger: 'bg-red-500 hover:bg-red-600 text-white',
       neutral: 'bg-gray-100 hover:bg-gray-200 text-gray-800',
+      disabled:
+        'bg-gray-100 hover:shadow-lg text-gray-400 pointer-events-none',
     },
     outline: {
       base: 'px-6 py-2 flex items-center justify-center space-x-2 text-lg font-semibold rounded-lg focus:outline-none transition hover:shadow-none focus:ring-2 ring-offset-1',
