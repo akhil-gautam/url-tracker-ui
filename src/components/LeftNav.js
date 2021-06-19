@@ -1,6 +1,13 @@
 import { Loader } from '../icons';
+import Button from './Button';
 
-const LeftNav = ({ links, loading = false, activeLinkID, setActiveLinkID }) => {
+const LeftNav = ({
+  links,
+  loading = false,
+  activeLinkID,
+  openCreateForm,
+  setActiveLinkID,
+}) => {
   if (loading) {
     return (
       <div className='w-3/12 h-screen bg-gray-400 animate-pulse text-white text-xl shadow-xl flex space-x-3 justify-center items-center relative'>
@@ -14,7 +21,11 @@ const LeftNav = ({ links, loading = false, activeLinkID, setActiveLinkID }) => {
 
   if (links.length === 0) {
     return (
-      <section className='w-3/12flex-1'>Please create some Pynk links.</section>
+      <section className='h-screen flex justify-center items-center border-r w-3/12 flex-1 px-6'>
+        <Button onClick={openCreateForm} variant='outline' color='primary'>
+          Create Your First Link
+        </Button>
+      </section>
     );
   }
 

@@ -5,12 +5,7 @@ export const urlPath = (path) => `${API_URL}/${path}`;
 export const dataResponse = (response) => response.data;
 export const errorResponse = (error) => error;
 
-export const get = (path, raw = false) =>
-  fetch(raw ? path : urlPath(path), {
-    headers: {
-      Authorization: `Authorization: ${localStorage.getItem('authToken')}`,
-    },
-  });
+export const get = (path, raw = false) => fetch(raw ? path : urlPath(path));
 
 export const post = (path, data) => {
   return fetch(urlPath(path), {

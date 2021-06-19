@@ -27,7 +27,6 @@ const NewLink = ({ refetch, handleModalClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(data);
     const er = {};
     LinkCreateSchema.validate(data, { abortEarly: false })
       .then(() => {
@@ -48,11 +47,13 @@ const NewLink = ({ refetch, handleModalClose }) => {
 
   const createLink = async () => {
     try {
+      setLoading(true);
       const response = await post('links', {
         ...data,
         token: getAuthToken(),
         user_id: getUserID(),
       });
+      setLoading(false);
       if (response.status !== 200) {
         const e = await response.json();
         toast.error(e.message);

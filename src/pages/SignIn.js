@@ -12,9 +12,12 @@ import {
   saveUserId,
 } from '../Api';
 
+import { Loader } from '../icons';
+
 import SignInSchema from '../validation_schema/SignInSchema';
 
 const SignIn = () => {
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState({ email: '', password: '' });
   const [errs, setErrs] = useState({ email: '', password: '' });
   const [redirect, setRedirect] = useState(false);
@@ -51,7 +54,9 @@ const SignIn = () => {
 
   const createUser = async () => {
     try {
+      setLoading(true);
       const response = await post('login', data);
+      setLoading(false);
       if (response.status !== 200) {
         const e = await response.json();
         toast.error(e.message);
@@ -77,6 +82,7 @@ const SignIn = () => {
         onSubmit={handleSubmit}
         className='px-4 md:px-8 py-10 w-full md:w-1/3 rounded-xl shadow-lg border'
       >
+        <header className='text-xl text-center text-purple-700 font-medium'>SIGN IN</header>
         <TextInput
           labelChild='Email'
           value={data.email}
@@ -98,9 +104,9 @@ const SignIn = () => {
         />
         <Button
           type='submit'
-          variant='outline'
+          color={loading ? 'disabled' : 'primary'}
           className='w-full my-8'
-          RightIcon={RightArrow}
+          RightIcon={loading ? Loader : RightArrow}
         >
           Sign In
         </Button>

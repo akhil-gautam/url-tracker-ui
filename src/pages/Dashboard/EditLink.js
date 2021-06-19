@@ -24,7 +24,6 @@ const EditLink = ({ link, handleModalClose, refetch }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(data);
     const er = {};
     LinkEditSchema.validate(data, { abortEarly: false })
       .then(() => {
@@ -50,13 +49,13 @@ const EditLink = ({ link, handleModalClose, refetch }) => {
         ...data,
         token: getAuthToken(),
       });
+      setLoading(false);
       if (response.status !== 200) {
         const e = await response.json();
         toast.error(e.message);
       } else {
         const readableResponse = await response.json();
         toast.success(readableResponse.message, { position: 'top-center' });
-        setLoading(false);
         handleModalClose();
         refetch();
       }

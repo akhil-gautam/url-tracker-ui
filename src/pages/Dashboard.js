@@ -11,6 +11,7 @@ const Dashboard = () => {
   const [activeLinkID, setActiveLinkID] = useState();
   const [activeLink, setActiveLink] = useState();
   const [links, setLinks] = useState([]);
+  const [openForm, setOpenForm] = useState(false);
 
   const token = getAuthToken() || '';
 
@@ -37,15 +38,20 @@ const Dashboard = () => {
     setActiveLink(parsedResponse[0]);
   };
 
+  const openCreateForm = () => {
+    setOpenForm(true);
+  };
+
   return (
     <main className='h-full'>
-      <TopNav refetch={fetchLinks}/>
+      <TopNav refetch={fetchLinks} createFormOpen={openForm} />
       <section className='flex w-full'>
         <LeftNav
           links={links}
           loading={loading}
           activeLinkID={activeLinkID}
           setActiveLinkID={(link) => setActiveLinkID(link)}
+          openCreateForm={openCreateForm}
         />
         <div className='w-9/12'>
           <MainContent

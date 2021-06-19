@@ -6,9 +6,9 @@ import Modal from '../components/Modal';
 import NewLink from './Dashboard/NewLink';
 import { LogoutIcon } from '../icons';
 
-const TopNav = ({ refetch }) => {
+const TopNav = ({ refetch, createFormOpen = false }) => {
   const [loggedIn, setLoggedIn] = useState(isLoggedIn());
-  const [modalOpen, setModal] = useState(false);
+  const [modalOpen, setModal] = useState(createFormOpen);
 
   const logout = () => {
     clearLocalStorage();
