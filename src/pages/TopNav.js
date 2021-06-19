@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import { isLoggedIn, clearLocalStorage } from '../Api';
@@ -6,9 +6,9 @@ import Modal from '../components/Modal';
 import NewLink from './Dashboard/NewLink';
 import { LogoutIcon } from '../icons';
 
-const TopNav = ({ refetch, createFormOpen = false }) => {
+const TopNav = ({ refetch }) => {
   const [loggedIn, setLoggedIn] = useState(isLoggedIn());
-  const [modalOpen, setModal] = useState(createFormOpen);
+  const [modalOpen, setModal] = useState(false);
 
   const logout = () => {
     clearLocalStorage();

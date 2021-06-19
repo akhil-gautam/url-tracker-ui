@@ -5,13 +5,15 @@ import { get, getAuthToken, getUserID } from '../Api';
 import TopNav from './TopNav';
 import LeftNav from '../components/LeftNav';
 import MainContent from './Dashboard/MainContent';
+import NewLink from './Dashboard/NewLink';
+import Modal from '../components/Modal';
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const [activeLinkID, setActiveLinkID] = useState();
   const [activeLink, setActiveLink] = useState();
   const [links, setLinks] = useState([]);
-  const [openForm, setOpenForm] = useState(false);
+  const [newForm, setNewForm] = useState(false);
 
   const token = getAuthToken() || '';
 
@@ -38,20 +40,31 @@ const Dashboard = () => {
     setActiveLink(parsedResponse[0]);
   };
 
-  const openCreateForm = () => {
-    setOpenForm(true);
-  };
+  if (newForm) {
+    return (
+      <Modal
+        isOpen={newForm}
+        onClose={() => setNewForm(false)}
+        className='w-2/3 flex flex-col justify-center'
+      >
+        <NewLink
+          refetch={fetchLinks}
+          handleModalClose={() => setNewForm(false)}
+        />
+      </Modal>
+    );
+  }
 
   return (
     <main className='h-full'>
-      <TopNav refetch={fetchLinks} createFormOpen={openForm} />
+      <TopNav refetch={fetchLinks} />
       <section className='flex w-full'>
         <LeftNav
           links={links}
           loading={loading}
           activeLinkID={activeLinkID}
           setActiveLinkID={(link) => setActiveLinkID(link)}
-          openCreateForm={openCreateForm}
+          openCreateForm={() => setNewForm(true)}
         />
         <div className='w-9/12'>
           <MainContent
